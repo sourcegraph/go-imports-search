@@ -32,7 +32,7 @@ export function activate(): void {
                 (line, lineNumber) => {
                     // An issue with the second regex is that it'll match lines like
                     //  return "string"
-                    const goPkgRegex = /\t\"([\w\/]*)\"$|\t([\w/]*)\s"[\w\/]*"$|import\\s"([\w\/]*)"$/
+                    const goPkgRegex = /\t\"([^\s]*)\"$|\t([^\s]*)\s"[^\s]*"$|import\\s"([^\s]*)"$/
                     const match = goPkgRegex.exec(line);
                     if (match && match.length >= 1) {
                         const pkgName = match[1]
