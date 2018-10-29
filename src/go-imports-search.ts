@@ -5,7 +5,7 @@ import * as sourcegraph from 'sourcegraph';
 export function activate(): void {
     sourcegraph.search.registerQueryTransformer({
         transformQuery: (query: string) => {
-            const goImportsRegex = /\bgo.imports:([\w\/]*)/;
+            const goImportsRegex = /\bgo.imports:([^\s]*)/;
             if (query.match(goImportsRegex)) {
                 // Get package name
                 const pkgFilter = query.match(goImportsRegex);
