@@ -18,7 +18,7 @@ export function activate(): void {
                 const matchAlias = '\\t[\\w/]*\\s"' + pkg + '"$';
                 // Match packages in single import statement
                 const matchSingle = 'import\\s"' + pkg + '"$';
-                const finalRegex = `(${matchPackage}|${matchAlias}|${matchSingle})`;
+                const finalRegex = `(${matchPackage}|${matchAlias}|${matchSingle}) lang:go `;
 
                 return query.replace(goImportsRegex, finalRegex);
             }
@@ -27,6 +27,9 @@ export function activate(): void {
     });
 
     sourcegraph.workspace.onDidOpenTextDocument.subscribe(doc => {
+        if (doc.languageId !== 'go') {
+            return
+        }
         from(doc.text.split('\n')).pipe(
             concatMap(
                 (line, lineNumber) => {
