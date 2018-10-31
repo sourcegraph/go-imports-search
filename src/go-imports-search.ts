@@ -60,7 +60,7 @@ export function activate(): void {
                                 new sourcegraph.Position(match.lineNumber, 0)
                             ),
                             after: {
-                                contentText: ' See all usages',
+                                contentText: 'See all usages',
                                 linkURL: '/search?q=go.imports:' + match.pkgName,
                                 backgroundColor: 'pink',
                                 color: 'black'
