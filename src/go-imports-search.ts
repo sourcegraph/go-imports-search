@@ -13,11 +13,11 @@ export function activate(): void {
                     pkgFilter && pkgFilter.length >= 1 ? pkgFilter[1] : '';
 
                 // Package imported in grouped import statements
-                const matchPackage = '\\t"' + pkg + '"$';
+                const matchPackage = '\\t"[^\\s]*' + pkg + '[^\\s]*"$';
                 // Match packages with aliases
-                const matchAlias = '\\t[\\w/]*\\s"' + pkg + '"$';
+                const matchAlias = '\\t[\\w/]*\\s"[^\\s]*' + pkg + '[^\\s]*"$';
                 // Match packages in single import statement
-                const matchSingle = 'import\\s"' + pkg + '"$';
+                const matchSingle = 'import\\s"[^\\s]*' + pkg + '[^\\s]*"$';
                 const finalRegex = `(${matchPackage}|${matchAlias}|${matchSingle}) lang:go `;
 
                 return query.replace(goImportsRegex, finalRegex);
