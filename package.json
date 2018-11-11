@@ -2,7 +2,7 @@
   "name": "go-imports-search",
   "title": "Go imports search",
   "description": "Lets you easily search for all files using a Go package. Adds a new operator `go.imports:` for all import statements of the package passed to the operator. This extension also adds a \"See all usages\" link at the end of import statement lines, which will execute the `go.imports` search for the relevant package.",
-  "publisher": "farhan",
+  "publisher": "sourcegraph",
   "activationEvents": [
     "*"
   ],
