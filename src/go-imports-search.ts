@@ -13,7 +13,7 @@ export function activate(): void {
                     pkgFilter && pkgFilter.length >= 1 ? pkgFilter[1] : '';
 
                 // Package imported in grouped import statements
-                const matchPackage = '\\t"[^\\s]*' + pkg + '[^\\s]*"$';
+                const matchPackage = '^\\t"[^\\s]*' + pkg + '[^\\s]*"$';
                 // Match packages with aliases
                 const matchAlias = '\\t[\\w/]*\\s"[^\\s]*' + pkg + '[^\\s]*"$';
                 // Match packages in single import statement
