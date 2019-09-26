@@ -1,6 +1,8 @@
 # Go imports search
 
-Lets you easily search for all files using a Go package. Adds a new operator `go.imports:` for all import statements of the package passed to the operator. This extension also adds a "See all usages" link at the end of import statement lines, which will execute the `go.imports` search for the relevant package.
+Lets you easily search for all files using a Go package. Adds a new operator `go.imports:` for all import statements of the package passed to the operator.
+
+This extension also adds a "See all usages" link at the end of import statement lines, which will execute the `go.imports` search for the relevant package. To enable "See all usages" links, add `"goImports.showAllUsagesLinks": true` in your user settings.
 
 ## Prerequisites
 
