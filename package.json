@@ -14,7 +14,7 @@
     },
     "configuration": {}
   },
-  "version": "0.0.0-DEVELOPMENT",
+  "version": "0.0.1-DEVELOPMENT",
   "license": "MIT",
   "main": "dist/go-imports-search.js",
   "scripts": {
