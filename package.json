@@ -12,7 +12,16 @@
       "editor/title": [],
       "commandPalette": []
     },
-    "configuration": {}
+    "configuration": {
+      "title": "Go imports settings",
+      "properties": {
+        "goImports.showAllUsagesLinks": {
+          "description": "Adds 'See all usages' link at the end of import statement lines",
+          "type": "boolean",
+          "default": "false"
+        }
+      }
+    }
   },
   "version": "0.0.1-DEVELOPMENT",
   "license": "MIT",
@@ -38,7 +47,7 @@
     "@sourcegraph/tslint-config": "^12.0.0",
     "lnfs-cli": "^2.1.0",
     "mkdirp": "^0.5.1",
-    "parcel-bundler": "^1.10.3",
+    "parcel-bundler": "^1.12.3",
     "sourcegraph": "^18.1.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.3"

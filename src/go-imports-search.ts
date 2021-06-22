@@ -1,10 +1,13 @@
 import { EMPTY, from, of } from 'rxjs'
 import { concatMap, toArray } from 'rxjs/operators'
 import * as sourcegraph from 'sourcegraph'
-import { resolveSettings, Settings } from './settings'
+
+interface Settings {
+    ['goImports.showAllUsagesLinks']?: boolean
+}
 
 export function activate(): void {
-    const settings = resolveSettings(sourcegraph.configuration.get<Settings>().value)
+    const showAllUsagesLinks = sourcegraph.configuration.get<Settings>().value['goImports.showAllUsagesLinks']
 
     sourcegraph.search.registerQueryTransformer({
         transformQuery: (query: string) => {
@@ -29,7 +32,7 @@ export function activate(): void {
     })
 
     sourcegraph.workspace.onDidOpenTextDocument.subscribe(doc => {
-        if (!settings['goImports.showAllUsagesLinks']) {
+        if (!showAllUsagesLinks) {
             return
         }
 
