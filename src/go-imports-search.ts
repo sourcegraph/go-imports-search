@@ -3,6 +3,8 @@ import { concatMap, toArray } from 'rxjs/operators'
 import * as sourcegraph from 'sourcegraph'
 import { resolveSettings, Settings } from './settings'
 
+const goImportsDecorationType = sourcegraph.app.createDecorationType()
+
 export function activate(): void {
     const settings = resolveSettings(sourcegraph.configuration.get<Settings>().value)
 
@@ -28,12 +30,12 @@ export function activate(): void {
         },
     })
 
-    sourcegraph.workspace.onDidOpenTextDocument.subscribe(doc => {
+    sourcegraph.workspace.openedTextDocuments.subscribe(doc => {
         if (!settings['goImports.showAllUsagesLinks']) {
             return
         }
 
-        if (doc.languageId !== 'go') {
+        if (doc.languageId !== 'go' || !doc.text) {
             return
         }
         from(doc.text.split('\n'))
@@ -53,26 +55,25 @@ export function activate(): void {
                 toArray()
             )
             .subscribe(matches => {
-                if (!matches) {
+                if (!matches || sourcegraph.app.activeWindow?.activeViewComponent?.type !== 'CodeEditor') {
                     return
                 }
-                if (sourcegraph.app.activeWindow && sourcegraph.app.activeWindow.visibleViewComponents.length > 0) {
-                    sourcegraph.app.activeWindow.visibleViewComponents[0].setDecorations(
-                        null,
-                        matches.map(match => ({
-                            range: new sourcegraph.Range(
-                                new sourcegraph.Position(match.lineNumber, 0),
-                                new sourcegraph.Position(match.lineNumber, 0)
-                            ),
-                            after: {
-                                contentText: 'See all usages',
-                                linkURL: '/search?q=go.imports:' + match.pkgName,
-                                backgroundColor: 'pink',
-                                color: 'black',
-                            },
-                        }))
-                    )
-                }
+
+                sourcegraph.app.activeWindow.activeViewComponent.setDecorations(
+                    goImportsDecorationType,
+                    matches.map(match => ({
+                        range: new sourcegraph.Range(
+                            new sourcegraph.Position(match.lineNumber, 0),
+                            new sourcegraph.Position(match.lineNumber, 0)
+                        ),
+                        after: {
+                            contentText: 'See all usages',
+                            linkURL: '/search?q=go.imports:' + match.pkgName,
+                            backgroundColor: 'pink',
+                            color: 'black',
+                        },
+                    }))
+                )
             })
     })
 }
