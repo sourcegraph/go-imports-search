@@ -1,5 +1,14 @@
 # Go imports search
 
+## ⚠️ Deprecation notice
+
+**Sourcegraph extensions have been deprecated with the September 2022 Sourcegraph
+release. [Learn more](https://docs.sourcegraph.com/extensions/deprecation).**
+
+The repo and the docs below are kept to support older Sourcegraph versions.
+
+## Description
+
 Lets you easily search for all files using a Go package. Adds a new operator `go.imports:` for all import statements of the package passed to the operator.
 
 This extension also adds a "See all usages" link at the end of import statement lines, which will execute the `go.imports` search for the relevant package. To enable "See all usages" links, add `"goImports.showAllUsagesLinks": true` in your user settings.
